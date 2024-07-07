@@ -1,0 +1,92 @@
+﻿@model WebApplication1.Model.Student
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+         
+            <div class="modal-body">
+             
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                 
+                <div class="form-group mb-3 "id="idcol" hidden>
+                    <input type="number" id="id" disabled class="form-control"  />
+                </div>
+                <div class="form-group mb-3">
+                    <input type="text" id="name" class="form-control" placeholder="Name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <input type="text" id="course" class="form-control" placeholder="Course" />
+                    <span asp-validation-for="Course" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label class="form-group mb-1">Gender</label>
+                    <div>
+                        <input type="radio" asp-for="Gender" id="gender" value="Male" />Male
+                        <input type="radio" asp-for="Gender" id="gender" value="female" />Female
+                    </div>
+                    <span asp-validation-for="Course" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" onclick="Edit()" id="btnedit" style="display:none" class="btn btn-primary">Edit</button>
+                <button type="button" onclick="DeleteById()" id="btndeleteById" style="display:none" class="btn btn-danger">Delete</button>
+                <button type="button" onclick="Add()" id="btnsave" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="text-start">
+            <h2 class="p-3">Index</h2>
+        </div>
+        <div class="text-end">
+            <!-- Button trigger modal -->
+            <button type="button" id="Modelclass" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Add
+            </button>
+        </div>
+    </div>
+    <div class="container m-2">
+        <table class="table table-bordered ">
+            <thead >
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Course
+                    </th>
+                    <th>
+                        Gender
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="tabledata">
+
+            </tbody>
+        </table>
+    </div>
+    <script src="~/js/custom.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+  
+</div>
+ 

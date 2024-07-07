@@ -1,0 +1,48 @@
+﻿@model WebApplication1.Model.Student
+<div class="container">
+    <form method="post">
+        <input asp-for-id="Id" hidden />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="container">
+            <div class="row">
+                <h3>
+                    Edit Student
+                </h3>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group mt-2">
+            <label class="form-control mb-2" asp-for="Name">
+            </label>
+            <input class="form-control" type="text" asp-for="Name" />
+            <span asp-validation-for="Name" class="text-danger">
+            </span>
+        </div>
+
+        <div class="form-group mt-2">
+            <label class="form-control mb-2" asp-for="Course">
+            </label>
+            <input class="form-control" type="text" asp-for="Course" />
+            <span asp-validation-for="Course" class="text-danger">
+            </span>
+        </div>
+        <div class="form-group mt-2">
+            <label class="form-control mb-2" asp-for="Gender">
+            </label>
+            <div>
+                <input type="radio" asp-for=" Gender" value="Male" /> Male
+            </div>
+            <div>
+                <input type="radio" asp-for=" Gender" value="Female" /> Female
+            </div>
+
+            <span asp-validation-for="Gender" class="text-danger">
+            </span>
+        </div>
+        <div class="form-group mt-2">
+            <button class="btn btn-dark" value="save" type="submit">Edit</button>
+            <a class="btn btn-primary" asp-action="Index" asp-controller="Student">Back to list</a>
+        </div>
+
+    </form>
+</div>
