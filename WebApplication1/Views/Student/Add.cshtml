@@ -1,46 +1,87 @@
 ﻿@model WebApplication1.Model.Student
-<div class="container">
-    <form method="post">
-        <div asp-validation-summary="ModelOnly"></div>
-        <div class="container">
-            <div class="row">
-                <h3>
-                    Add new Student
-                </h3>
-            </div>
-        </div>
-        <hr />
-        <div class="form-group mt-2" >
-            <label class="form-control mb-2" asp-for="Name">
-            </label>
-            <input class="form-control" type="text" asp-for="Name" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
- 
-        <div class="form-group mt-2">
-            <label class="form-control mb-2" asp-for="Course">
-            </label>
-            <input class="form-control" type="text" asp-for="Course" />
-            <span asp-validation-for="Course" class="text-danger">
-            </span>
-        </div>
-        <div class="form-group mt-2">
-            <label class="form-control mb-2" asp-for="Gender">
-            </label>
-            <div>
-                <input type="radio" asp-for=" Gender" value="Male" /> Male
-            </div>
-            <div>
-                <input type="radio" asp-for=" Gender" value="Female" /> Female
-            </div>
 
-            <span asp-validation-for="Gender" class="text-danger">
-            </span>
-        </div>
-        <div class="form-group mt-2"> 
-            <button class="btn btn-dark" value="save" type="submit" >save</button>
-            <a class="btn btn-primary" asp-action="Index" asp-controller="Student">Back to list</a>
+@{
+    ViewData["Title"] = "Add Student";
+}
+
+<h2>Add Student</h2>
+
+<form asp-action="Add" method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Course"></label>
+        <input asp-for="Course" class="form-control" />
+        <span asp-validation-for="Course" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Gender"></label>
+        <input asp-for="Gender" class="form-control" />
+        <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>
+
+
+    <div id="addresses">
+        <div class="container d-flex justify-content-between mt-3">
+            <h3>Addresses</h3>
+            <button type="button" class="btn btn-secondary mt-2" id="add-address">Add Another Address</button>
         </div>
 
-    </form>
-</div>
+        <div class="address-item">
+            <div class="form-group">
+                <label>Village</label>
+                <input name="Addresses[0].Village" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>City</label>
+                <input name="Addresses[0].City" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Postal Code</label>
+                <input name="Addresses[0].PostalCode" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Country</label>
+                <input name="Addresses[0].Country" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <button type="submit" value="save" class="btn btn-primary mt-2">Save</button>
+    <a class="btn btn-dark mt-2" asp-action="Index" asp-controller="Student">BackToList</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            var addressIndex = 2;
+            $('#add-address').click(function () {
+                var addressHtml = `
+                                <h3>Addresses ${addressIndex}</h3>
+                            <div class="address-item">
+                                <div class="form-group">
+                                    <label>Village</label>
+                                    <input name="Addresses[${addressIndex}].Village" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>City</label>
+                                    <input name="Addresses[${addressIndex}].City" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Postal Code</label>
+                                    <input name="Addresses[${addressIndex}].PostalCode" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Country</label>
+                                    <input name="Addresses[${addressIndex}].Country" class="form-control" />
+                                </div>
+                            </div>`;
+                $('#addresses').append(addressHtml);
+                addressIndex++;
+            });
+        });
+    </script>
+}

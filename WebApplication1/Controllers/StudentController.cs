@@ -16,8 +16,7 @@ namespace WebApplication1.Controllers
         }
         public IActionResult Index()
         {
-            List<Student> students = _db.Students.ToList();    
-
+            var students = _db.Students.Include(s => s.Address).ToList();
             return View(students);
         }
         [HttpGet]
@@ -26,15 +25,22 @@ namespace WebApplication1.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Add(Student student)
-        {
-            if(ModelState.IsValid)
-            {
-                var students = _db.Students.Add(student);
-                _db.SaveChanges();
+        public IActionResult Add([FromBody]Student student)
+        {            
+                if (ModelState.IsValid)
+                {
+                    // Ensure Addresses is not null
+                    if (student.Address == null)
+                    {
+                        student.Address = new List<Address>();
+                    }
+
+                    _db.Students.Add(student);
+                    _db.SaveChanges();
+                    return RedirectToAction(nameof(Index));
+                }
+                return View();
             }
-            return Redirect(nameof(Index));
-        }
         public IActionResult Edit(int id )
         {
             var students = _db.Students.FirstOrDefault(x => x.Id == id);    

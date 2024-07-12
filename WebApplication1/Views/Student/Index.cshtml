@@ -30,28 +30,42 @@
                     <th>
                         Gender
                     </th>
+                    <th>
+                        Address
+                    </th>
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody >
-                @foreach(var item in Model )
+            <tbody>
+                @foreach (var student in Model)
                 {
                     <tr>
+                        <td>@student.Id</td>
+                        <td>@student.Name</td>
+                        <td>@student.Course</td>
+                        <td>@student.Gender</td>
                         <td>
-                            @item.Id
+                            @if (student.Address != null && student.Address.Any())
+                            {
+                                @foreach (var address in student.Address)
+                                {
+                                    <div>
+                                        <p>Village: @address.Village</p>
+                                        <p>City: @address.City</p>
+                                        <p>Postal Code: @address.PostalCode</p>
+                                        <p>Country: @address.Country</p>
+                                        <hr />
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p>No addresses available.</p>
+                            }
                         </td>
                         <td>
-                            @item.Name
-                        </td>
-                        <td>
-                            @item.Course
-                        </td>
-                        <td>
-                            @item.Gender
-                        </td>
-                        <td>
-                           <a class="btn btn-primary " asp-action="Edit" asp-controller="Student" asp-route-id="@item.Id">Edit</a>
-                           <a class="btn btn-danger " asp-action="Delete" asp-controller="Student" asp-route-id="@item.Id">Delete</a>
+                            <a class="btn btn-primary " asp-action="Edit" asp-controller="Student" asp-route-id="@student.Id">Edit</a>
+                            <a class="btn btn-danger " asp-action="Delete" asp-controller="Student" asp-route-id="@student.Id">Delete</a>
                         </td>
                     </tr>
                 }
